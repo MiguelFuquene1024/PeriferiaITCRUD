@@ -3,6 +3,7 @@ package com.prueba.ApiRestful.UserCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -10,6 +11,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import javax.sql.DataSource;
 
 @SpringBootApplication
+@EntityScan(basePackages = {"com.prueba.ApiRestful.UserCrud.domain.entities"})
 public class UserCrudApplication {
 
 	public static void main(String[] args) {
@@ -20,6 +22,7 @@ public class UserCrudApplication {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Autowired DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource);
+
 		em.setPackagesToScan(new String[] { "com.prueba.ApiRestful.UserCrud" });
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);

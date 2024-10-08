@@ -1,4 +1,4 @@
-package com.prueba.ApiRestful.UserCrud.infrastructure;
+package com.prueba.ApiRestful.UserCrud.infrastructure.controller;
 
 import com.prueba.ApiRestful.UserCrud.application.service.UserService;
 import com.prueba.ApiRestful.UserCrud.domain.entities.User;
@@ -27,18 +27,23 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(user));
 
     }
-    @PutMapping
-    private ResponseEntity<?> actualizarUsuario(@RequestBody User user){
-        return ResponseEntity.ok(userService.updateUser(user));
+    @GetMapping
+    private ResponseEntity<?> obtenerUsuarios(){
+        return ResponseEntity.ok(userService.getUsers());
+    }
+    @GetMapping(value = "{id}")
+    private ResponseEntity<?> obtenerUsuario(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getUser(id));
+    }
+    @PutMapping(value = "{id}")
+    private ResponseEntity<?> actualizarUsuario(@PathVariable Long id,@RequestBody User user){
+        return ResponseEntity.ok(userService.updateUser(id,user));
     }
     @DeleteMapping(value = "{id}")
     private ResponseEntity<?> eliminarUsuario(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.ok().body(HttpStatus.OK);
     }
-    @GetMapping
-    private ResponseEntity<?> obtenerUsuario(@RequestParam Long id){
-        return ResponseEntity.ok(userService.getUser(id));
-    }
+
 
 }
