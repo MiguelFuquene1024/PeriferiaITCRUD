@@ -32,24 +32,53 @@ Prueba técnica de Periferia IT
 - Abra la terminal y ejecute los siguientes comandos
     . mvn clean 
     . mvn compile
-- Luego corra la aplicación.
+- Luego corra la aplicación,deberá verse como la imagen a continuación:
+- 
+  
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/ApiRunning.png)
+
+  
 - Lo primero que tiene que hacer es registrar un nuevo usuario, este nos servira para posteriormente hacer la autenticación y poder usar los servicios del API. Para lograr esto abra postman, cree una nueva petición http de tipo POST y pegue la siguiente url (http://localhost:8080/auth/register), luego en el body ingrese un objeto JSON como se muestra en la siguiente imagen.
+
+
+  ![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/RegisterRequest.png)
 
 
 Puede alterar el nombre, email y el password como usted lo prefiera, la imagen es solo como referencia.
 
--  Luego de esto envie la peticion, la aplicacion le deberia arrojar una respuesta 200 y un JSON de respuesta con un token, este no lo necesitaremos por ahora, pero si nos hara saber que quedo registrado el nuevo usuario.
+-  Luego de esto envie la petición, la aplicacion le deberia arrojar una respuesta 200 y un JSON de respuesta con un token, este no lo necesitaremos por ahora, pero si nos hara saber que quedo registrado el nuevo usuario.
 -  Luego de esto nos logearemos ahora si, para esto cree otra peticion POST e introduzca la siguiente URL (http://localhost:8080/auth/login) y en el body envie un JSON parecido al que envio en la peticion anterior solo que sin el nombre, unicamente indique email y password. IMPORTANTE: Tenga en cuenta que debe poner el mismo email y contraseña que uso cuando registro el usuario, de no ser asi la aplicacion no le arrojara ningun token.
 Cuando envie la petición el servicio le debe responder con un token como se muestra en la siguiente imagen.
+
+
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/LoginRequest.png)
+
+
 - Guarde este token o copielo en el bloc de notas, pues con este token nos autenticaremos para ahora si poder acceder a los servicos CRUD de la API.
 - Cree una nueva petición de tipo POST, pegue la siguiente url (http://localhost:8080/v1/api/user) y en el body haga un JSON nuevamente con nombre, email y password. Adicionalmente vaya al apartado de authorization en el postman, en Auth Type seleccione la que dice Bearer Token y en el cuadro de texto pegue el token que copio anteriormente en el bloc de notas. Con este token lo que estará haciendo es authenticarse para acceder a los servicios, esta petición nos servirá para guardar un usuario en la base de datos.
 - Debe obtener una respuesta como la que se muestra en la siguiente imagen:
+
+
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/CreateUser.png)
+  
   
 - De no ser asi sera porque pego mal el token o en su defecto al momento de hacer el login puso mal el email o la contraseña con la que se regitro al inicio.
 - Acceda desde su navegador a la siguiente dirección http://localhost:8080/h2-db
 - Debera ver una pagina como la que se muestra a continuación, debe poner los mismos valores que se muestran en la imagen. Desde aqui es donde accederemos a la Base de datos en memoria de springboot(H2) para poder ver los datos que tenemos en esta.
+
+
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/H2Form.png)
+  
   
 - Al darle en conectar deber ver la siguiente imagen, de doble clic en la tabla users y en el cuadro de texto le debera aparecer este texto "SELECT * FROM users", deberá precionar run y luego vera en pantalla todos los usarios que tiene la base de datos.
+
+
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/ViewTables.png)
+
+
+![](https://github.com/MiguelFuquene1024/PeriferiaITCRUD/blob/master/img/AllUsers.png)
+
+  
 - Tenga en cuenta que cada vez que corra la aplicación esta db se volvera a borrar, por lo cual tendrá que repetir el proceso de registro y authenticación.
 - La aplicación tiene las opciones de Actualiza, Traer uno o todos los usuarios y eliminar usuario ademas de la de creación que ya vimos. Abajo les dejaré cada una de las url para probar esas acciones.
   -  Para actualizar:
@@ -69,5 +98,4 @@ Cuando envie la petición el servicio le debe responder con un token como se mue
       -  url: http://localhost:8080/v1/api/user/ seguido del id del usuario que quiere obtener po ejemplo (http://localhost:8080/v1/api/user/1)
       -  body: No lleva
 
-![](https://github.com/MiguelFuquene1024/NTTDataCustomerApi/blob/master/example/Prueba%20customerApi.png)
 
